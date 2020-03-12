@@ -80,10 +80,10 @@ for i in range(len(x1)):
     plt.plot(x1, x2, 'o', x1, linearFunction)
 
     # This line save actual plot to file
-    plt.savefig('./Plots/cos' + str(i) + '.png')
+    plt.savefig('./Plots/plot' + str(i+1) + '.png')
 
     # This line add plot to list, which is used to make gif file
-    images.append(imageio.imread('./Plots/cos' + str(i) + '.png'))
+    images.append(imageio.imread('./Plots/plot' + str(i+1) + '.png'))
 
     # This line shows plot
     plt.show()
