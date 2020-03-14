@@ -2,6 +2,8 @@ from numpy import array, append
 from random import random, seed
 import matplotlib.pyplot as plt
 import imageio
+import os
+import shutil
 
 
 def randVector(n):
@@ -30,6 +32,21 @@ def fun(u):
         return 0
 
 
+lang = input("Choose language [eng/pl]: ")
+if lang == "pl":
+    print("Wybierz co chcesz zrobic: \n1. Tylko wyswietlaj wykresy")
+    print("2. Zapisz wykresy do plików \n3. Zapisz wykresy i utworz gifa")
+    print("4. Utworz gifa bez zapisywania wykresow")
+    toSave = input("Wybor: ")
+else:
+    print("Choose what you want to do: \n1. Only show plots")
+    print("2. Save plots to files \n3. Save plots and make gif")
+    print("4. Make gif without saving plots")
+    toSave = input("Choice: ")
+
+if toSave == '2' or toSave == '3' or toSave == '4':
+    os.mkdir('Plot')
+
 # eta represents step
 eta = 0.1
 
@@ -45,18 +62,6 @@ w = randWeight(3)
 
 # x1 and x2 are random numbers from -5 to 5
 x1, x2 = randVector(100)
-
-plt.plot(x1, x2, 'o')
-
-# This is the plot's range
-plt.xlim(-5, 5)
-plt.ylim(-5, 5)
-
-# These are axis descriptions
-plt.xlabel('x1')
-plt.ylabel('x2')
-
-plt.savefig('./basicPlot.png')
 
 for i in range(len(x1)):
     linearFunction = array([])
@@ -79,11 +84,13 @@ for i in range(len(x1)):
     # This make plot
     plt.plot(x1, x2, 'o', x1, linearFunction)
 
-    # This line save actual plot to file
-    plt.savefig('./Plots/plot' + str(i+1) + '.png')
+    if toSave == '2' or toSave == '3' or toSave == '4':
+        # This line save actual plot to file
+        plt.savefig('./Plot/plot' + str(i+1) + '.png')
 
-    # This line add plot to list, which is used to make gif file
-    images.append(imageio.imread('./Plots/plot' + str(i+1) + '.png'))
+        if toSave == '3' or toSave == '4':
+            # This lines add plot to list, which is used to make gif file
+            images.append(imageio.imread('./Plot/plot' + str(i+1) + '.png'))
 
     # This line shows plot
     plt.show()
@@ -97,4 +104,7 @@ for i in range(len(x1)):
         pass
 
 # Plots, which are in list 'images', are convert to gif
-imageio.mimsave('./howPlotChangeOverTime.gif', images)
+if toSave == '3' or toSave == '4':
+    imageio.mimsave('./howPlotChangeOverTime.gif', images)
+    if toSave == '4':
+        shutil.rmtree("Plot", ignore_errors=True)
