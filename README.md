@@ -7,7 +7,8 @@
 #### 5. Corrects weights 
 #### 6. Return to point 3 (5 times)
 
-### You can see in folder plots how they look like
+
+## You can see in folder plots how they look like
 #### 1.png - at the beginning (with random weights)
 ![alt text](https://raw.githubusercontent.com/bruderooo/Studies-AI-homework/master/Plots/1.png)
 #### 2.png - with a corrected a bit weights
